@@ -1,18 +1,18 @@
-apt::source { 'dotdeb':
-    location   => 'http://packages.dotdeb.org',
-    release    => 'squeeze',
-    repos      => 'all',
-    key        => '89DF5277',
-    key_server => 'keys.gnupg.net'
-}
+# apt::source { 'dotdeb':
+#     location   => 'http://packages.dotdeb.org',
+#     release    => "${::lsbdistcodename}-php55",
+#     repos      => 'all',
+#     key        => '89DF5277',
+#     key_server => 'keys.gnupg.net'
+# }
 
 apt::source { 'percona':
     location          => 'http://repo.percona.com/apt',
-    release           => 'precise',
+    release           => $::lsbdistcodename,
     repos             => 'main',
     key               => '1C4CBDCDCD2EFD2A',
     key_server        => 'keys.gnupg.net',
-    include_src       => true,
+    include_src       => true
 }
 
 file { '/etc/php5/cli':
@@ -48,6 +48,10 @@ php::ini {
         display_errors => 'On',
         memory_limit   => '256M',
         date_timezone  => 'UTC';
+}
+
+php::module { ['gd', 'intl', 'curl']:
+    require => Exec['apt_update']
 }
 
 # Ensure the php and percona sources are added and apt updated before attempting to install percona
