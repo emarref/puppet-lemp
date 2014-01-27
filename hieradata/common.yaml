@@ -1,44 +1,44 @@
 ---
-php::cli::inifile: "/etc/php5/cli/php.ini"
+php::cli::inifile: '/etc/php5/cli/php.ini'
 
-mysql::client::package_name:  percona-server-client
-mysql::server::package_name:  percona-server-server
+mysql::client::package_name:  'percona-server-client'
+mysql::server::package_name:  'percona-server-server'
 mysql::server::root_password: 'password'
 
 nginx::nginx_upstreams:
     'www':
-        ensure:  present
-        members: [ unix:/var/run/php5-fpm.sock ]
+        ensure:  'present'
+        members: [ 'unix:/var/run/php5-fpm.sock' ]
 nginx::nginx_vhosts:
-    'default':
+    default:
         www_root:             '/var/www/default/web'
         server_name:          [ '_' ]
-        listen_options:       default_server
-        use_default_location: false
+        listen_options:       'default_server'
+        use_default_location: 'false'
 nginx::nginx_locations:
-    'default_root':
-        vhost:     default
+    default_root:
+        vhost:     'default'
         location:  '/'
-        www_root:  /var/www/default/web
+        www_root:  '/var/www/default/web'
         try_files: [ '$uri', '$uri/', '/index.php?$args' ]
-    'default_php':
-        vhost:              default
-        fastcgi:            www
+    default_php:
+        vhost:              'default'
+        fastcgi:            'www'
         location:           '~ [^/]\.php(/|$)'
-        try_files:          $uri =404
-        fastcgi_split_path: ^(.+?\.php)(/.*)$
+        try_files:          [ '$uri',  '=404' ]
+        fastcgi_split_path: '^(.+?\.php)(/.*)$'
 
 mysql::server::databases:
     default:
-        name:   default
-        ensure: present
+        name:   'default'
+        ensure: 'present'
 mysql::server::users:
     default:
-        name:          default@localhost
-        ensure:        present
-        password_hash: *2470C0C06DEE42FD1618BB99005ADCA2EC9D1E19
+        name:          'default@localhost'
+        ensure:        'present'
+        password_hash: '*2470C0C06DEE42FD1618BB99005ADCA2EC9D1E19'
 mysql::server::grants:
     default:
-        user:       default@localhost
-        table:      default.*
-        privileges: ALL
+        user:       'default@localhost'
+        table:      'default.*'
+        privileges: 'ALL'
