@@ -5,8 +5,8 @@ VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
-    config.vm.box = "precise64-latest"
-    config.vm.box_url = "/Users/ramble/Development/ubuntu-12.04.3-server-amd64-vbox434-puppet342.box"
+    config.vm.box = "debian-7.2.0"
+    config.vm.box_url = "/Users/ramble/Development/debian-7.2.0.box"
     config.vm.network :private_network, ip: "10.10.10.5"
 
     config.vm.hostname = "emarref.dev.local"
