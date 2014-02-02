@@ -1,5 +1,7 @@
 ---
 php::cli::inifile: '/etc/php5/cli/php.ini'
+php::fpm::conf::user:  'www-data'
+php::fpm::conf::group: 'www-data'
 
 mysql::client::package_name:  'percona-server-client'
 mysql::server::package_name:  'percona-server-server'

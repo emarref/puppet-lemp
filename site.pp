@@ -54,5 +54,11 @@ php::module { ['gd', 'intl', 'curl']:
     require => Exec['apt_update']
 }
 
+php::fpm::conf { 'www':
+    listen => '/var/run/php5-fpm.sock',
+    user   => hiera('php::fpm::conf::user'),
+    group  => hiera('php::fpm::conf::group'),
+}
+
 # Ensure the php and percona sources are added and apt updated before attempting to install percona
 Apt::Source['percona'] -> Anchor['mysql::server::start']
