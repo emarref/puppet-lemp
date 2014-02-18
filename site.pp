@@ -23,7 +23,7 @@ file { '/etc/php5/fpm':
     ensure => directory
 }
 
-package { ['puppet', 'htop', 'vim']:
+package { ['puppet', 'htop', 'vim', 'git']:
     ensure  => latest,
     require => Exec['apt_update']
 }
