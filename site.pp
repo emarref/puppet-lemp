@@ -50,7 +50,7 @@ php::ini {
         date_timezone  => 'UTC';
 }
 
-php::module { ['gd', 'intl', 'curl']:
+php::module { ['gd', 'intl', 'curl', 'mysql']:
     require => Exec['apt_update']
 }
 
